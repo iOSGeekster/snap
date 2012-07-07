@@ -14,6 +14,6 @@
 - (void)joinViewControllerDidCancel:(JoinViewController *)controller;
 
 @end
-@interface JoinViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate>
+@interface JoinViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate, MatchmakingClientDelegate>
 @property (nonatomic, weak) id <JoinViewControllerDelegate> delegate;
 @end

@@ -12,6 +12,7 @@
     NSMutableArray *_availableServers;
 }
 @synthesize session = _session;
+@synthesize delegate = _delegate;
 
 - (void)startSearchingForServersWithSessionID:(NSString *)sessionID{
     _availableServers = [[NSMutableArray alloc] initWithCapacity:10];
@@ -25,6 +26,18 @@
     return _availableServers;
 }
 
+- (NSUInteger)availableServerCount{
+    return [_availableServers count];
+}
+
+- (NSString *)peerIDForAvailableServerAtIndex:(NSUInteger)index{
+    return [_availableServers objectAtIndex:index];
+}
+
+- (NSString *)displayNameForPeerID:(NSString *)peerID{
+    return [_session displayNameForPeer:peerID];
+}
+
 #pragma mark - GKSessionDelegate
 
 - (void)session:(GKSession *)session peer:(NSString *)peerID didChangeState:(GKPeerConnectionState)state
@@ -32,6 +45,29 @@
 #ifdef DEBUG
 	NSLog(@"MatchmakingClient: peer %@ changed state %d", peerID, state);
 #endif
+    switch (state) {
+        case GKPeerStateAvailable:
+            if(![_availableServers containsObject:peerID]){
+                [_availableServers addObject:peerID];
+                [self.delegate matchmakingClient:self serverBecameAvailable:peerID];
+            }
+            break;
+        case GKPeerStateUnavailable:
+            if([_availableServers containsObject:peerID]){
+                [_availableServers removeObject:peerID];
+                [self.delegate matchmakingClient:self serverBecameUnavailable:peerID];
+            }
+            break;
+            
+        case GKPeerStateConnected:
+            break;
+        case GKPeerStateConnecting:
+            break;
+        case GKPeerStateDisconnected:
+            break;
+        default:
+            break;
+    }
 }
 
 - (void)session:(GKSession *)session didReceiveConnectionRequestFromPeer:(NSString *)peerID

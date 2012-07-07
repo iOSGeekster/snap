@@ -52,6 +52,7 @@
     
     if(_matchMakingClient == nil){
         _matchMakingClient = [[MatchMakingClient alloc] init];
+        _matchMakingClient.delegate = self;
         [_matchMakingClient startSearchingForServersWithSessionID:SESSION_ID];
         self.nameTextField.placeholder = _matchMakingClient.session.displayName;
         [self.tableView reloadData];
@@ -93,14 +94,36 @@
     [self.delegate joinViewControllerDidCancel:self];
 }
 
+#pragma mark - MatchmakingClientDelegate
+- (void)matchmakingClient:(MatchMakingClient *)client serverBecameAvailable:(NSString *)peerID{
+    [self.tableView reloadData];
+}
+
+- (void)matchmakingClient:(MatchMakingClient *)client serverBecameUnavailable:(NSString *)peerID{
+    [self.tableView reloadData];
+}
+
 #pragma mark - UITablweViewDataSource
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return 0;
+    if (_matchMakingClient != nil) {
+        return [_matchMakingClient availableServerCount];
+    }else{
+        return 0;
+    }
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return nil;
+    static NSString *CellIdentifier = @"CellIdentifier";
+    
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    if (cell == nil) {
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+    }
+    NSString *peerID = [_matchMakingClient peerIDForAvailableServerAtIndex:indexPath.row];
+    cell.textLabel.text = [_matchMakingClient displayNameForPeerID:peerID];
+    
+    return cell;
 }
 
 #pragma mark - UITextFieldDelegate
