@@ -8,6 +8,7 @@
 
 #import "JoinViewController.h"
 #import "UIFont+SnapAdditions.h"
+#import "PeerCell.h"
 
 @interface JoinViewController ()
 @property (nonatomic, weak) IBOutlet UILabel *headingLabel;
@@ -105,6 +106,16 @@
 
 #pragma mark - UITablweViewDataSource
 
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
+    if(_matchMakingClient != nil){
+        [self.view addSubview:self.waitView];
+        NSString *peerID = [_matchMakingClient.availableServers objectAtIndex:indexPath.row];
+        [_matchMakingClient connectToServerWithPeerID:peerID];
+    }
+}
+
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     if (_matchMakingClient != nil) {
         return [_matchMakingClient availableServerCount];
@@ -118,7 +129,7 @@
     
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+        cell = [[PeerCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     }
     NSString *peerID = [_matchMakingClient peerIDForAvailableServerAtIndex:indexPath.row];
     cell.textLabel.text = [_matchMakingClient displayNameForPeerID:peerID];

@@ -17,6 +17,7 @@
 		246F339315A07C7800EAECBF /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 246F339215A07C7800EAECBF /* GameKit.framework */; };
 		246F339615A07DA600EAECBF /* MatchmakingServer.m in Sources */ = {isa = PBXBuildFile; fileRef = 246F339515A07DA600EAECBF /* MatchmakingServer.m */; };
 		246F339A15A0849C00EAECBF /* MatchMakingClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 246F339915A0849C00EAECBF /* MatchMakingClient.m */; };
+		248F120D15AB49AD00733468 /* PeerCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 248F120C15AB49AD00733468 /* PeerCell.m */; };
 		7B01146A151B14EA00A0616D /* TextField.png in Resources */ = {isa = PBXBuildFile; fileRef = 7B011468151B14EA00A0616D /* TextField.png */; };
 		7B01146B151B14EA00A0616D /* TextField@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7B011469151B14EA00A0616D /* TextField@2x.png */; };
 		7B01146E151B2E6A00A0616D /* TableViewBorder.png in Resources */ = {isa = PBXBuildFile; fileRef = 7B01146C151B2E6A00A0616D /* TableViewBorder.png */; };
@@ -84,6 +85,8 @@
 		246F339515A07DA600EAECBF /* MatchmakingServer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MatchmakingServer.m; path = Snap/MatchmakingServer.m; sourceTree = "<group>"; };
 		246F339815A0849C00EAECBF /* MatchMakingClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MatchMakingClient.h; path = Snap/MatchMakingClient.h; sourceTree = "<group>"; };
 		246F339915A0849C00EAECBF /* MatchMakingClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MatchMakingClient.m; path = Snap/MatchMakingClient.m; sourceTree = "<group>"; };
+		248F120B15AB49AD00733468 /* PeerCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PeerCell.h; path = Snap/PeerCell.h; sourceTree = "<group>"; };
+		248F120C15AB49AD00733468 /* PeerCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PeerCell.m; path = Snap/PeerCell.m; sourceTree = "<group>"; };
 		7B011468151B14EA00A0616D /* TextField.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TextField.png; sourceTree = "<group>"; };
 		7B011469151B14EA00A0616D /* TextField@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "TextField@2x.png"; sourceTree = "<group>"; };
 		7B01146C151B2E6A00A0616D /* TableViewBorder.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TableViewBorder.png; sourceTree = "<group>"; };
@@ -177,6 +180,15 @@
 			name = Networking;
 			sourceTree = "<group>";
 		};
+		248F120F15AB49BE00733468 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				248F120B15AB49AD00733468 /* PeerCell.h */,
+				248F120C15AB49AD00733468 /* PeerCell.m */,
+			);
+			name = Views;
+			sourceTree = "<group>";
+		};
 		7B2B314014CC726A0002F476 /* Images */ = {
 			isa = PBXGroup;
 			children = (
@@ -226,6 +238,7 @@
 		7B67D9CB14C9C6AC00254619 = {
 			isa = PBXGroup;
 			children = (
+				248F120F15AB49BE00733468 /* Views */,
 				246F339715A07DA900EAECBF /* Networking */,
 				246F338215A056D400EAECBF /* Categories */,
 				7BF3E7CF151DF3680091A397 /* View Controllers */,
@@ -409,6 +422,7 @@
 				246F338E15A0774700EAECBF /* JoinViewController.m in Sources */,
 				246F339615A07DA600EAECBF /* MatchmakingServer.m in Sources */,
 				246F339A15A0849C00EAECBF /* MatchMakingClient.m in Sources */,
+				248F120D15AB49AD00733468 /* PeerCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

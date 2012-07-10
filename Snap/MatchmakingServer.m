@@ -7,20 +7,36 @@
 //
 
 #import "MatchmakingServer.h"
-
+typedef enum{
+    ServerStateIdle,
+    ServerStateAcceptingConnections,
+    ServerStateIgnoringNewConnections,
+}
+ServerState;
 @implementation MatchmakingServer{
     NSMutableArray *_connectedClients;
+    ServerState _serverState;
 }
 
 @synthesize maxClients = _maxClients;
 @synthesize session = _session;
 
+- (id)init{
+    if((self = [super init])){
+        _serverState = ServerStateIdle;
+    }
+    return self;
+}
+
 - (void)startAcceptingConnectionsForSessionID:(NSString *)sessionID{
-    _connectedClients = [NSMutableArray arrayWithCapacity:self.maxClients];
-    
-    _session = [[GKSession alloc] initWithSessionID:sessionID displayName:nil sessionMode:GKSessionModeServer];
-    _session.delegate = self;
-    _session.available = YES;
+    if (_serverState == ServerStateIdle) {
+        _serverState = ServerStateAcceptingConnections;
+        _connectedClients = [NSMutableArray arrayWithCapacity:self.maxClients];
+        
+        _session = [[GKSession alloc] initWithSessionID:sessionID displayName:nil sessionMode:GKSessionModeServer];
+        _session.delegate = self;
+        _session.available = YES;
+    }
 }
 
 - (NSArray *)connectedClients{
