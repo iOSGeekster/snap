@@ -9,6 +9,7 @@
 #import "HostViewController.h"
 #import "UIFont+SnapAdditions.h"
 #import "UIButton+SnapAdditions.h"
+#import "PeerCell.h"
 
 @interface HostViewController (){
     MatchmakingServer *_matchMakingServer;
@@ -61,6 +62,7 @@
     
     if(_matchMakingServer == nil){
         _matchMakingServer = [[MatchmakingServer alloc] init];
+        _matchMakingServer.delegate = self;
         _matchMakingServer.maxClients = 3;
         [_matchMakingServer startAcceptingConnectionsForSessionID:SESSION_ID];
         
@@ -88,6 +90,16 @@
     [self.delegate hostViewControllerDidCancel:self];
 }
 
+#pragma mark - MatchmakingServerDelegate
+
+- (void)matchmakingServer:(MatchmakingServer *)delegate clientDidConnect:(NSString *)peerID{
+    [self.tableView reloadData];
+}
+
+- (void)matchmakingServer:(MatchmakingServer *)delegate clientDidDisconnect:(NSString *)peerID{
+    [self.tableView reloadData];
+}
+
 #pragma mark - UITextFieldDelegate
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField{
@@ -100,10 +112,27 @@
 #pragma mark - UITableViewDataSource
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return 0;
+    if (_matchMakingServer != nil) {
+        return [_matchMakingServer connectedClientCount];
+    } else {
+        return 0;
+    }
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    static NSString *CellIdentifier = @"CellIdentifier";
+    
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    if (cell == nil) {
+        cell = [[PeerCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+    }
+    
+    NSString *peerID = [_matchMakingServer peerIDForConnectedClientAtIndex:indexPath.row];
+    cell.textLabel.text = [_matchMakingServer displayNameForPeerID:peerID];
+    return cell;
+}
+
+- (NSIndexPath *)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     return nil;
 }
 

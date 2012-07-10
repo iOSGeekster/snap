@@ -16,6 +16,6 @@
 @end
 
 
-@interface HostViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate>
+@interface HostViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate, MatchmakingServerDelegate>
 @property (nonatomic, weak) id <HostViewControllerDelegate> delegate;
 @end

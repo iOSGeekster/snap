@@ -20,6 +20,7 @@ ServerState;
 
 @synthesize maxClients = _maxClients;
 @synthesize session = _session;
+@synthesize delegate = _delegate;
 
 - (id)init{
     if((self = [super init])){
@@ -40,7 +41,19 @@ ServerState;
 }
 
 - (NSArray *)connectedClients{
-    return _connectedClients;
+   return _connectedClients;
+}
+
+- (NSUInteger)connectedClientCount{
+    return [_connectedClients count];
+}
+
+- (NSString *)peerIDForConnectedClientAtIndex:(NSUInteger)index{
+    return [_connectedClients objectAtIndex:index];
+}
+
+- (NSString *)displayNameForPeerID:(NSString *)peerID{
+    return [_session displayNameForPeer:peerID];
 }
 
 #pragma mark - GKSessionDelegate
@@ -49,6 +62,31 @@ ServerState;
 #ifdef DEBUG
     NSLog(@"MatchmakingServer: peer %@ changed state %d", peerID, state);
 #endif
+    
+    switch (state) {
+        case GKPeerStateAvailable:
+            break;
+        case GKPeerStateUnavailable:
+            break;
+        case GKPeerStateConnected:
+            if(_serverState == ServerStateAcceptingConnections){
+                if (![_connectedClients containsObject:peerID]) {
+                    [_connectedClients addObject:peerID];
+                    [self.delegate matchmakingServer:self clientDidConnect:peerID];
+                }
+            }
+            break;
+        case GKPeerStateDisconnected:
+            if(_serverState != ServerStateIdle){
+                if([_connectedClients containsObject:peerID]){
+                    [_connectedClients removeObject:peerID];
+                    [self.delegate matchmakingServer:self clientDidDisconnect:peerID];
+                }
+            }
+            break;
+        default:
+            break;
+    }
 }
 
 - (void)session:(GKSession *)session didReceiveConnectionRequestFromPeer:(NSString *)peerID{
