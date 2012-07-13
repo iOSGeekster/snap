@@ -72,6 +72,20 @@ BOOL _buttonsEnabled;
     [self dismissViewControllerAnimated:NO completion:nil];
 }
 
+- (void)joinViewController:(JoinViewController *)controller didDisconnectWithReason:(QuitReason)reason{
+    if (reason == QuitReasonConnectionDropped) {
+        [self dismissViewControllerAnimated:NO completion:^
+         {
+             [self showDisconnectedAlert];
+         }];
+    }
+}
+
+- (void)showDisconnectedAlert{
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Disconnected", @"Client disconnected alert title") message:NSLocalizedString(@"You were disconnected from the game", @"Client disconnect alert message") delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", @"Button: OK") otherButtonTitles:nil, nil];
+    [alert show];
+}
+
 #pragma mark Animation methods
 - (void) prepareForIntroAnimation{
     self.sImageView.hidden = YES;

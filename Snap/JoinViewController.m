@@ -23,6 +23,7 @@
 
 @implementation JoinViewController{
     MatchMakingClient *_matchMakingClient;
+    QuitReason _quitReason;
 }
 @synthesize delegate = _delegate;
 @synthesize headingLabel = _headingLabel;
@@ -52,6 +53,9 @@
     [super viewDidAppear:animated];
     
     if(_matchMakingClient == nil){
+        
+        _quitReason = QuitReasonConnectionDropped;
+        
         _matchMakingClient = [[MatchMakingClient alloc] init];
         _matchMakingClient.delegate = self;
         [_matchMakingClient startSearchingForServersWithSessionID:SESSION_ID];
@@ -102,6 +106,13 @@
 
 - (void)matchmakingClient:(MatchMakingClient *)client serverBecameUnavailable:(NSString *)peerID{
     [self.tableView reloadData];
+}
+
+- (void)matchmakingClient:(MatchMakingClient *)client didDisconnectFromServer:(NSString *)peerID{
+    _matchMakingClient.delegate = nil;
+    _matchMakingClient = nil;
+    [self.tableView reloadData];
+    [self.delegate joinViewController:self didDisconnectWithReason:_quitReason];
 }
 
 #pragma mark - UITablweViewDataSource

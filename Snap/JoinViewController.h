@@ -12,6 +12,7 @@
 @protocol JoinViewControllerDelegate <NSObject>
 
 - (void)joinViewControllerDidCancel:(JoinViewController *)controller;
+- (void)joinViewController:(JoinViewController *)controller didDisconnectWithReason:(QuitReason)reason;
 
 @end
 @interface JoinViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate, MatchmakingClientDelegate>

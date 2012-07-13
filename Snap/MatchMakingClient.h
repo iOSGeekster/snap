@@ -13,6 +13,7 @@
 
 - (void)matchmakingClient:(MatchMakingClient *)client serverBecameAvailable:(NSString *)peerID;
 - (void)matchmakingClient:(MatchMakingClient *)client serverBecameUnavailable:(NSString *)peerID;
+- (void)matchmakingClient:(MatchMakingClient *)client didDisconnectFromServer:(NSString *)peerID;
 
 @end
 

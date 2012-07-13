@@ -13,3 +13,12 @@
 
 //The name of GameKit session
 #define SESSION_ID @"Snap!"
+
+typedef enum
+{
+    QuitReasonNoNetwork,
+    QuitReasonConnectionDropped,
+    QuitReasonUserQuit,
+    QuitReasonServerQuit,
+}
+QuitReason;
