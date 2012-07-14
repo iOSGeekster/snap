@@ -65,6 +65,12 @@ BOOL _buttonsEnabled;
 - (void)hostViewControllerDidCancel:(HostViewController *)controller{
     [self dismissViewControllerAnimated:NO completion:nil];
 }
+
+- (void)hostViewController:(HostViewController *)controller didEndSessionWithReason:(QuitReason)reason{
+    if(reason == QuitReasonNoNetwork){
+        [self showNoNetworkAlert];
+    }
+}
     
 #pragma mark - JoinViewControllerDelegate
 
@@ -73,12 +79,19 @@ BOOL _buttonsEnabled;
 }
 
 - (void)joinViewController:(JoinViewController *)controller didDisconnectWithReason:(QuitReason)reason{
-    if (reason == QuitReasonConnectionDropped) {
+    if (reason == QuitReasonNoNetwork) {
+        [self showNoNetworkAlert];
+    } else if (reason == QuitReasonConnectionDropped) {
         [self dismissViewControllerAnimated:NO completion:^
          {
              [self showDisconnectedAlert];
          }];
     }
+}
+
+- (void)showNoNetworkAlert{
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"No Network", @"No network alert title") message:NSLocalizedString(@"To user multiplater, please enable Bluetooth or Wi-Fi in your device's settings", @"No network alert message") delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", @"Button: OK") otherButtonTitles:nil, nil];
+    [alert show];
 }
 
 - (void)showDisconnectedAlert{

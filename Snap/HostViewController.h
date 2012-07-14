@@ -12,6 +12,7 @@
 @protocol HostViewControllerDelegate <NSObject>
 
 - (void)hostViewControllerDidCancel:(HostViewController *)controller;
+- (void)hostViewController:(HostViewController *)controller didEndSessionWithReason:(QuitReason)reason;
 
 @end
 

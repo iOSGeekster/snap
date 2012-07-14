@@ -96,6 +96,8 @@
 }
 
 - (IBAction)exitAction:(id)sender{
+    _quitReason = QuitReasonUserQuit;
+    [_matchMakingClient disconnectFromServer];
     [self.delegate joinViewControllerDidCancel:self];
 }
 
@@ -113,6 +115,10 @@
     _matchMakingClient = nil;
     [self.tableView reloadData];
     [self.delegate joinViewController:self didDisconnectWithReason:_quitReason];
+}
+
+- (void)matchmakingClientNoNetwork:(MatchMakingClient *)client{
+    _quitReason = QuitReasonNoNetwork;
 }
 
 #pragma mark - UITablweViewDataSource

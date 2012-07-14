@@ -11,6 +11,8 @@
 @protocol MatchmakingServerDelegate <NSObject>
 - (void)matchmakingServer:(MatchmakingServer *)delegate clientDidConnect:(NSString *)peerID;
 - (void)matchmakingServer:(MatchmakingServer *)delegate clientDidDisconnect:(NSString *)peerID;
+- (void)matchmakingServerNoNetwork:(MatchmakingServer *)server;
+- (void)matchmakingServerSessionDidEnd:(MatchmakingServer *)server;
 @end
 @interface MatchmakingServer : NSObject <GKSessionDelegate>
 @property (nonatomic, assign) int maxClients;
@@ -22,5 +24,6 @@
 - (NSUInteger)connectedClientCount;
 - (NSString *)peerIDForConnectedClientAtIndex:(NSUInteger)index;
 - (NSString *)displayNameForPeerID:(NSString *)peerID;
+- (void)endSession;
 
 @end

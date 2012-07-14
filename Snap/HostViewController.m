@@ -13,6 +13,7 @@
 
 @interface HostViewController (){
     MatchmakingServer *_matchMakingServer;
+    QuitReason _quitReason;
 }
 @property (nonatomic, weak) IBOutlet UILabel *headingLabel;
 @property (nonatomic, weak) IBOutlet UILabel *nameLabel;
@@ -87,6 +88,8 @@
 }
 
 - (IBAction)exitAction:(id)sender{
+    _quitReason = QuitReasonUserQuit;
+    [_matchMakingServer endSession];
     [self.delegate hostViewControllerDidCancel:self];
 }
 
@@ -98,6 +101,17 @@
 
 - (void)matchmakingServer:(MatchmakingServer *)delegate clientDidDisconnect:(NSString *)peerID{
     [self.tableView reloadData];
+}
+
+- (void)matchmakingServerNoNetwork:(MatchmakingServer *)server{
+    _quitReason = QuitReasonNoNetwork;
+}
+
+- (void)matchmakingServerSessionDidEnd:(MatchmakingServer *)server{
+    _matchMakingServer.delegate = nil;
+    _matchMakingServer = nil;
+    [self.tableView reloadData];
+    [self.delegate hostViewController:self didEndSessionWithReason:_quitReason];
 }
 
 #pragma mark - UITextFieldDelegate

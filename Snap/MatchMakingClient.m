@@ -88,6 +88,10 @@ ClientState;
                     [self.delegate matchmakingClient:self serverBecameUnavailable:peerID];
                 }
             }
+            
+            if(_clientState == ClientStateConnecting && [peerID isEqualToString:_serverPeerID]){
+                [self disconnectFromServer];
+            }
             break;
         //You are now connected
         case GKPeerStateConnected:
@@ -143,6 +147,19 @@ ClientState;
 {
 #ifdef DEBUG
 	NSLog(@"MatchmakingClient: session failed %@", error);
+#endif
+    
+    if([[error domain] isEqualToString:GKSessionErrorDomain]){
+        if ([error code] == GKSessionCannotEnableError) {
+            [self.delegate matchmakingClientNoNetwork:self];
+            [self disconnectFromServer];
+        }
+    }
+}
+
+- (void)dealloc{
+#ifdef DEBUG
+    NSLog(@"dealloc %@",self);
 #endif
 }
 @end

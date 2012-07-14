@@ -116,6 +116,25 @@ ServerState;
 #ifdef DEBUG
     NSLog(@"MatchmakingServer: session failed %@", error);
 #endif
+    
+    if([[error domain] isEqualToString:GKSessionErrorDomain]){
+        if([error code] == GKSessionCannotEnableError){
+            [self.delegate matchmakingServerNoNetwork:self];
+            [self endSession];
+        }
+    }
+}
+
+- (void)endSession{
+    NSAssert(_serverState != ServerStateIdle, @"Wrong state");
+    
+    _serverState = ServerStateIdle;
+    [_session disconnectFromAllPeers];
+    _session.available = NO;
+    _session.delegate = nil;
+    _session = nil;
+    _connectedClients = nil;
+    [self.delegate matchmakingServerSessionDidEnd:self];
 }
 
 @end
