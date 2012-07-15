@@ -3,6 +3,7 @@
 #import "UIFont+SnapAdditions.h"
 #import "UIButton+SnapAdditions.h"
 #import "HostViewController.h"
+#import "Game.h"
 
 @interface MainViewController ()
 @property (nonatomic, weak) IBOutlet UIImageView *sImageView;
@@ -18,6 +19,7 @@
 
 @implementation MainViewController
 BOOL _buttonsEnabled;
+BOOL _performAnimations;
 @synthesize sImageView = _sImageView;
 @synthesize nImageView = _nImageView;
 @synthesize aImageView = _aImageView;
@@ -27,6 +29,13 @@ BOOL _buttonsEnabled;
 @synthesize hostGameButton = _hostGameButton;
 @synthesize joinGameButton = _joinGameButton;
 @synthesize singlePlayerGameButton = _singlePlayerGameButton;
+
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil{
+    if((self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil])){
+        _performAnimations = YES;
+    }
+    return self;
+}
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
@@ -71,8 +80,43 @@ BOOL _buttonsEnabled;
         [self showNoNetworkAlert];
     }
 }
+
+#pragma mark - Game
+
+- (void)startGameWithBlock:(void (^)(Game *))block{
+    GameViewController *gameViewController = [[GameViewController alloc] initWithNibName:@"GameViewController" bundle:nil];
+    gameViewController.delegate = self;
+    
+    [self presentViewController:gameViewController animated:NO completion:^{
+        Game *game = [[Game alloc] init];
+        gameViewController.game = game;
+        game.delegate = gameViewController;
+        block(game);
+    }];
+}
+
+#pragma mark - GameViewControllerDelegate
+
+- (void)gameViewController:(GameViewController *)controller didQuitWithReason:(QuitReason)reason{
+    [self dismissViewControllerAnimated:NO completion:^{
+        if (reason == QuitReasonConnectionDropped) {
+            [self showDisconnectedAlert];
+        }
+    }];
+}
     
 #pragma mark - JoinViewControllerDelegate
+
+- (void)joinViewController:(JoinViewController *)controller startGameWithSession:(GKSession *)session playerName:(NSString *)name server:(NSString *)peerID{
+    _performAnimations = NO;
+    
+    [self dismissViewControllerAnimated:NO completion:^{
+        _performAnimations = YES;
+        [self startGameWithBlock:^(Game *game){
+            [game startGameClientWithSession:session playerName:name server:peerID];
+        }];
+    }];
+}
 
 - (void)joinViewControllerDidCancel:(JoinViewController *)controller{
     [self dismissViewControllerAnimated:NO completion:nil];
@@ -196,12 +240,16 @@ BOOL _buttonsEnabled;
 
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    [self prepareForIntroAnimation];
+    if (_performAnimations) {
+        [self prepareForIntroAnimation];
+    }
 }
 
 - (void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
-    [self performIntroAnimation];
+    if (_performAnimations) {
+        [self performIntroAnimation];
+    }
 }
 
 - (void)viewDidLoad{

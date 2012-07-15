@@ -97,6 +97,7 @@ ClientState;
         case GKPeerStateConnected:
             if (_clientState == ClientStateConnecting) {
                 _clientState = ClientStateConnected;
+                [self.delegate matchmakingClient:self didConnectToServer:peerID];
             }
             break;
         case GKPeerStateConnecting:

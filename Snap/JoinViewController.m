@@ -117,6 +117,15 @@
     [self.delegate joinViewController:self didDisconnectWithReason:_quitReason];
 }
 
+- (void)matchmakingClient:(MatchMakingClient *)client didConnectToServer:(NSString *)peerID{
+    NSString *name = [self.nameTextField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    if ([name length] == 0) {
+        name = _matchMakingClient.session.displayName;
+    }
+    
+    [self.delegate joinViewController:self startGameWithSession:_matchMakingClient.session playerName:name server:peerID];
+}
+
 - (void)matchmakingClientNoNetwork:(MatchMakingClient *)client{
     _quitReason = QuitReasonNoNetwork;
 }

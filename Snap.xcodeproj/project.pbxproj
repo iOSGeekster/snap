@@ -17,6 +17,9 @@
 		246F339315A07C7800EAECBF /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 246F339215A07C7800EAECBF /* GameKit.framework */; };
 		246F339615A07DA600EAECBF /* MatchmakingServer.m in Sources */ = {isa = PBXBuildFile; fileRef = 246F339515A07DA600EAECBF /* MatchmakingServer.m */; };
 		246F339A15A0849C00EAECBF /* MatchMakingClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 246F339915A0849C00EAECBF /* MatchMakingClient.m */; };
+		24760A3F15B2ECC70037E3C1 /* GameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 24760A3E15B2ECC70037E3C1 /* GameViewController.m */; };
+		24760A4315B2ECE20037E3C1 /* GameViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 24760A4115B2ECE20037E3C1 /* GameViewController.xib */; };
+		24760A4615B2F0270037E3C1 /* Game.m in Sources */ = {isa = PBXBuildFile; fileRef = 24760A4515B2F0270037E3C1 /* Game.m */; };
 		248F120D15AB49AD00733468 /* PeerCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 248F120C15AB49AD00733468 /* PeerCell.m */; };
 		7B01146A151B14EA00A0616D /* TextField.png in Resources */ = {isa = PBXBuildFile; fileRef = 7B011468151B14EA00A0616D /* TextField.png */; };
 		7B01146B151B14EA00A0616D /* TextField@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7B011469151B14EA00A0616D /* TextField@2x.png */; };
@@ -85,6 +88,11 @@
 		246F339515A07DA600EAECBF /* MatchmakingServer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MatchmakingServer.m; path = Snap/MatchmakingServer.m; sourceTree = "<group>"; };
 		246F339815A0849C00EAECBF /* MatchMakingClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MatchMakingClient.h; path = Snap/MatchMakingClient.h; sourceTree = "<group>"; };
 		246F339915A0849C00EAECBF /* MatchMakingClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MatchMakingClient.m; path = Snap/MatchMakingClient.m; sourceTree = "<group>"; };
+		24760A3D15B2ECC70037E3C1 /* GameViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GameViewController.h; path = Snap/GameViewController.h; sourceTree = "<group>"; };
+		24760A3E15B2ECC70037E3C1 /* GameViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GameViewController.m; path = Snap/GameViewController.m; sourceTree = "<group>"; };
+		24760A4215B2ECE20037E3C1 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = Snap/en.lproj/GameViewController.xib; sourceTree = "<group>"; };
+		24760A4415B2F0270037E3C1 /* Game.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Game.h; path = Snap/Game.h; sourceTree = "<group>"; };
+		24760A4515B2F0270037E3C1 /* Game.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Game.m; path = Snap/Game.m; sourceTree = "<group>"; };
 		248F120B15AB49AD00733468 /* PeerCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PeerCell.h; path = Snap/PeerCell.h; sourceTree = "<group>"; };
 		248F120C15AB49AD00733468 /* PeerCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PeerCell.m; path = Snap/PeerCell.m; sourceTree = "<group>"; };
 		7B011468151B14EA00A0616D /* TextField.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TextField.png; sourceTree = "<group>"; };
@@ -180,6 +188,15 @@
 			name = Networking;
 			sourceTree = "<group>";
 		};
+		24760A4715B2F02B0037E3C1 /* Data Model */ = {
+			isa = PBXGroup;
+			children = (
+				24760A4415B2F0270037E3C1 /* Game.h */,
+				24760A4515B2F0270037E3C1 /* Game.m */,
+			);
+			name = "Data Model";
+			sourceTree = "<group>";
+		};
 		248F120F15AB49BE00733468 /* Views */ = {
 			isa = PBXGroup;
 			children = (
@@ -238,6 +255,7 @@
 		7B67D9CB14C9C6AC00254619 = {
 			isa = PBXGroup;
 			children = (
+				24760A4715B2F02B0037E3C1 /* Data Model */,
 				248F120F15AB49BE00733468 /* Views */,
 				246F339715A07DA900EAECBF /* Networking */,
 				246F338215A056D400EAECBF /* Categories */,
@@ -293,6 +311,9 @@
 				246F338C15A0774700EAECBF /* JoinViewController.h */,
 				246F338D15A0774700EAECBF /* JoinViewController.m */,
 				246F338F15A0778200EAECBF /* JoinViewController.xib */,
+				24760A3D15B2ECC70037E3C1 /* GameViewController.h */,
+				24760A3E15B2ECC70037E3C1 /* GameViewController.m */,
+				24760A4115B2ECE20037E3C1 /* GameViewController.xib */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
@@ -403,6 +424,7 @@
 				246F337D15A0567500EAECBF /* Action_Man.ttf in Resources */,
 				246F338B15A060D600EAECBF /* HostViewController.xib in Resources */,
 				246F339115A0778200EAECBF /* JoinViewController.xib in Resources */,
+				24760A4315B2ECE20037E3C1 /* GameViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -423,6 +445,8 @@
 				246F339615A07DA600EAECBF /* MatchmakingServer.m in Sources */,
 				246F339A15A0849C00EAECBF /* MatchMakingClient.m in Sources */,
 				248F120D15AB49AD00733468 /* PeerCell.m in Sources */,
+				24760A3F15B2ECC70037E3C1 /* GameViewController.m in Sources */,
+				24760A4615B2F0270037E3C1 /* Game.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -443,6 +467,14 @@
 				246F339015A0778200EAECBF /* en */,
 			);
 			name = JoinViewController.xib;
+			sourceTree = "<group>";
+		};
+		24760A4115B2ECE20037E3C1 /* GameViewController.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				24760A4215B2ECE20037E3C1 /* en */,
+			);
+			name = GameViewController.xib;
 			sourceTree = "<group>";
 		};
 		7B67D9E314C9C6AD00254619 /* InfoPlist.strings */ = {

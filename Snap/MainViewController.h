@@ -1,5 +1,6 @@
 #import "HostViewController.h"
 #import "JoinViewController.h"
-@interface MainViewController : UIViewController <HostViewControllerDelegate, JoinViewControllerDelegate>
+#import "GameViewController.h"
+@interface MainViewController : UIViewController <HostViewControllerDelegate, JoinViewControllerDelegate, GameViewControllerDelegate>
 
 @end
