@@ -7,11 +7,14 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "Player.h"
 @class Game;
 @protocol GameDelegate <NSObject>
 
 - (void)game:(Game *)game didQuitWithReason:(QuitReason)reason;
-    
+- (void)gameWaitingForServerReady:(Game *)game;
+- (void)gameWaitingForClientsReady:(Game *)game;
+
 @end
 @interface Game : NSObject <GKSessionDelegate>
 
@@ -19,6 +22,7 @@
 @property (nonatomic, assign) BOOL isServer;
 
 - (void)startGameClientWithSession:(GKSession *)session playerName:(NSString *)name server:(NSString *)peerID;
+- (void)startServerGameWithSession:(GKSession *)session playerName:(NSString *)name clients:(NSArray *)clients;
 - (void)quitGameWithReason:(QuitReason)reason;
 
 @end

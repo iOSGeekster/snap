@@ -81,6 +81,17 @@ BOOL _performAnimations;
     }
 }
 
+- (void)hostViewController:(HostViewController *)controller startGameWithSession:(GKSession *)session playerName:(NSString *)name clients:(NSArray *)clients{
+    _performAnimations = NO;
+    
+    [self dismissViewControllerAnimated:NO completion:^{
+        _performAnimations = YES;
+        [self startGameWithBlock:^(Game *game){
+            [game startServerGameWithSession:session playerName:name clients:clients];
+        }];
+    }];
+}
+
 #pragma mark - Game
 
 - (void)startGameWithBlock:(void (^)(Game *))block{

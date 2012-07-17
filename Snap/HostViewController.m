@@ -84,6 +84,14 @@
 }
 
 - (IBAction)startAction:(id)sender{
+    if (_matchMakingServer != nil && [_matchMakingServer connectedClientCount] > 0) {
+        NSString *name = [self.nameTextField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+        if ([name length] == 0) {
+            name = _matchMakingServer.session.displayName;
+        }
+        [_matchMakingServer stopAcceptingConnections];
+        [self.delegate hostViewController:self startGameWithSession:_matchMakingServer.session playerName:name clients:_matchMakingServer.connectedClients];
+    }
     
 }
 

@@ -44,6 +44,14 @@
     [self.delegate gameViewController:self didQuitWithReason:reason];
 }
 
+- (void)gameWaitingForServerReady:(Game *)game{
+    self.centerLabel.text = NSLocalizedString(@"Waiting for game to start...", @"Status text: waiting for server");
+}
+
+- (void)gameWaitingForClientsReady:(Game *)game{
+    self.centerLabel.text = NSLocalizedString(@"Waiting for other players...", @"Status text: waiting for clients");
+}
+
 
 
 @end
