@@ -7,6 +7,8 @@
 //
 
 #import "Game.h"
+#import "Packet.h"
+#import "PacketSignInResponse.h"
 typedef enum{
     GameStateWaitingForSignIn,
     GameStateWaitingForReady,
@@ -91,6 +93,9 @@ GameState;
         }
         index++;
     }
+    
+    Packet *packet = [Packet packetWithType:PacketTypeSignInRequest];
+    [self sendPacketToAllClients:packet];
 }
 
 - (void)quitGameWithReason:(QuitReason)reason{
@@ -100,6 +105,27 @@ GameState;
     _session.delegate = nil;
     _session = nil;
     [self.delegate game:self didQuitWithReason:reason];
+}
+
+#pragma mark - Networking
+
+- (void)sendPacketToAllClients:(Packet *)packet{
+    GKSendDataMode dataMode = GKSendDataReliable;
+    NSData *data = [packet data];
+    
+    NSError *error;
+    if(![_session sendDataToAllPeers:data withDataMode:dataMode error:&error]){
+        NSLog(@"Error sending data to clients: %@",error);
+    }
+}
+
+- (void)sendPacketToServer:(Packet *)packet{
+    GKSendDataMode dataMode = GKSendDataReliable;
+    NSData *data = [packet data];
+    NSError *error;
+    if (![_session sendData:data toPeers:[NSArray arrayWithObject:_serverPeerID] withDataMode:dataMode error:&error]) {
+        NSLog(@"Error sending data to server %@", error);
+    }
 }
 
 #pragma mark - GKSession delegate
@@ -142,6 +168,29 @@ GameState;
 #ifdef DEBUG
 	NSLog(@"Game: receive data from peer: %@, data: %@, length: %d", peerID, data, [data length]);
 #endif
+    
+    Packet *packet = [Packet packetWithData:data];
+    if (packet == nil) {
+        NSLog(@"Invalid packet: %@", data);
+        return;
+    }
+    [self clientReceivedPacket:packet];
+}
+
+- (void)clientReceivedPacket:(Packet *)packet{
+    switch (packet.packetType) {
+        case PacketTypeSignInRequest:
+            if (_state == GameStateWaitingForSignIn){
+                _state = GameStateWaitingForReady;
+                Packet *packet = [PacketSignInResponse packetWithPlayerName:_localPlayerName];
+                [self sendPacketToServer:packet];
+            }
+            break;
+            
+        default:
+            NSLog(@"Client received unexpected packet: %@", packet);
+            break;
+    }
 }
 
 @end

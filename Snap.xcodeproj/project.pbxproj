@@ -22,6 +22,9 @@
 		24760A4615B2F0270037E3C1 /* Game.m in Sources */ = {isa = PBXBuildFile; fileRef = 24760A4515B2F0270037E3C1 /* Game.m */; };
 		248F120D15AB49AD00733468 /* PeerCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 248F120C15AB49AD00733468 /* PeerCell.m */; };
 		24E085F515B5B07700848FD0 /* Player.m in Sources */ = {isa = PBXBuildFile; fileRef = 24E085F415B5B07700848FD0 /* Player.m */; };
+		24E085F915B5D9FC00848FD0 /* Packet.m in Sources */ = {isa = PBXBuildFile; fileRef = 24E085F815B5D9FC00848FD0 /* Packet.m */; };
+		24E085FC15B5DCFF00848FD0 /* NSData+SnapAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 24E085FB15B5DCFF00848FD0 /* NSData+SnapAdditions.m */; };
+		24E0860515B5ED6800848FD0 /* PacketSignInResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 24E0860415B5ED6800848FD0 /* PacketSignInResponse.m */; };
 		7B01146A151B14EA00A0616D /* TextField.png in Resources */ = {isa = PBXBuildFile; fileRef = 7B011468151B14EA00A0616D /* TextField.png */; };
 		7B01146B151B14EA00A0616D /* TextField@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7B011469151B14EA00A0616D /* TextField@2x.png */; };
 		7B01146E151B2E6A00A0616D /* TableViewBorder.png in Resources */ = {isa = PBXBuildFile; fileRef = 7B01146C151B2E6A00A0616D /* TableViewBorder.png */; };
@@ -98,6 +101,12 @@
 		248F120C15AB49AD00733468 /* PeerCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PeerCell.m; path = Snap/PeerCell.m; sourceTree = "<group>"; };
 		24E085F315B5B07700848FD0 /* Player.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Player.h; path = Snap/Player.h; sourceTree = "<group>"; };
 		24E085F415B5B07700848FD0 /* Player.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Player.m; path = Snap/Player.m; sourceTree = "<group>"; };
+		24E085F715B5D9FC00848FD0 /* Packet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Packet.h; path = Snap/Packet.h; sourceTree = "<group>"; };
+		24E085F815B5D9FC00848FD0 /* Packet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Packet.m; path = Snap/Packet.m; sourceTree = "<group>"; };
+		24E085FA15B5DCFF00848FD0 /* NSData+SnapAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSData+SnapAdditions.h"; path = "Snap/NSData+SnapAdditions.h"; sourceTree = "<group>"; };
+		24E085FB15B5DCFF00848FD0 /* NSData+SnapAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSData+SnapAdditions.m"; path = "Snap/NSData+SnapAdditions.m"; sourceTree = "<group>"; };
+		24E0860315B5ED6800848FD0 /* PacketSignInResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PacketSignInResponse.h; path = Snap/PacketSignInResponse.h; sourceTree = "<group>"; };
+		24E0860415B5ED6800848FD0 /* PacketSignInResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PacketSignInResponse.m; path = Snap/PacketSignInResponse.m; sourceTree = "<group>"; };
 		7B011468151B14EA00A0616D /* TextField.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TextField.png; sourceTree = "<group>"; };
 		7B011469151B14EA00A0616D /* TextField@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "TextField@2x.png"; sourceTree = "<group>"; };
 		7B01146C151B2E6A00A0616D /* TableViewBorder.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TableViewBorder.png; sourceTree = "<group>"; };
@@ -176,6 +185,8 @@
 				246F338015A056CF00EAECBF /* UIFont+SnapAdditions.m */,
 				246F338315A0598F00EAECBF /* UIButton+SnapAdditions.h */,
 				246F338415A0598F00EAECBF /* UIButton+SnapAdditions.m */,
+				24E085FA15B5DCFF00848FD0 /* NSData+SnapAdditions.h */,
+				24E085FB15B5DCFF00848FD0 /* NSData+SnapAdditions.m */,
 			);
 			name = Categories;
 			sourceTree = "<group>";
@@ -198,6 +209,10 @@
 				24760A4515B2F0270037E3C1 /* Game.m */,
 				24E085F315B5B07700848FD0 /* Player.h */,
 				24E085F415B5B07700848FD0 /* Player.m */,
+				24E085F715B5D9FC00848FD0 /* Packet.h */,
+				24E085F815B5D9FC00848FD0 /* Packet.m */,
+				24E0860315B5ED6800848FD0 /* PacketSignInResponse.h */,
+				24E0860415B5ED6800848FD0 /* PacketSignInResponse.m */,
 			);
 			name = "Data Model";
 			sourceTree = "<group>";
@@ -453,6 +468,9 @@
 				24760A3F15B2ECC70037E3C1 /* GameViewController.m in Sources */,
 				24760A4615B2F0270037E3C1 /* Game.m in Sources */,
 				24E085F515B5B07700848FD0 /* Player.m in Sources */,
+				24E085F915B5D9FC00848FD0 /* Packet.m in Sources */,
+				24E085FC15B5DCFF00848FD0 /* NSData+SnapAdditions.m in Sources */,
+				24E0860515B5ED6800848FD0 /* PacketSignInResponse.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
