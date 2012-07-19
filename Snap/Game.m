@@ -98,6 +98,10 @@ GameState;
     [self sendPacketToAllClients:packet];
 }
 
+- (Player *)playerWithPeerID:(NSString *)peerID{
+    return [_players objectForKey:peerID];
+}
+
 - (void)quitGameWithReason:(QuitReason)reason{
     _state = GameStateQuitting;
     [_session disconnectFromAllPeers];
@@ -174,7 +178,29 @@ GameState;
         NSLog(@"Invalid packet: %@", data);
         return;
     }
-    [self clientReceivedPacket:packet];
+    
+    Player *player = [self playerWithPeerID:peerID];
+    if (self.isServer){
+        [self serverReceivedPacket:packet fromPlayer:player];
+    }else{
+        [self clientReceivedPacket:packet];
+    }
+}
+
+- (void)serverReceivedPacket:(Packet *)packet fromPlayer:(Player *)player{
+    switch (packet.packetType) {
+        case PacketTypeSignInResponse:
+            if (_state == GameStateWaitingForSignIn) {
+                player.name = ((PacketSignInResponse *)packet).playerName;
+                
+                NSLog(@"Server received sign in from client '%@'", player.name);
+            }
+            break;
+            
+        default:
+            NSLog(@"Server received unexpected packet: %@", packet);
+            break;
+    }
 }
 
 - (void)clientReceivedPacket:(Packet *)packet{

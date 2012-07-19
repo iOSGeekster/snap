@@ -28,7 +28,7 @@ typedef enum{
     PacketTypeClientQuit
 }
 PacketType;
-
+const size_t PACKET_HEADER_SIZE = 10;
 @interface Packet : NSObject
 @property (nonatomic, assign) PacketType packetType;
 

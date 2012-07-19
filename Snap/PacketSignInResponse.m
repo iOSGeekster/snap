@@ -16,6 +16,12 @@
     return [[[self class] alloc] initWithPlayerName:playerName];
 }
 
++ (id)packetWithData:(NSData *)data{
+    size_t count;
+    NSString *playerName = [data jn_stringAtOffset:PACKET_HEADER_SIZE bytesRead:&count];
+    return [[self class] packetWithPlayerName:playerName];
+}
+
 - (id)initWithPlayerName:(NSString *)playerName{
     if ((self = [super initWithType:PacketTypeSignInResponse])) {
         self.playerName = playerName;

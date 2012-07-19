@@ -8,7 +8,7 @@
 
 #import "Packet.h"
 #import "NSData+SnapAdditions.h"
-const size_t PACKET_HEADER_SIZE = 10;
+#import "PacketSignInResponse.h"
 @implementation Packet
 
 @synthesize packetType = _packetType;
@@ -30,7 +30,21 @@ const size_t PACKET_HEADER_SIZE = 10;
     
 // Not used yet?   int packetNumber = [data jn_int32AtOffset:4];
     PacketType packetType = [data jn_int16AtOffset:8];
-    return [Packet packetWithType:packetType];
+    
+    Packet *packet;
+    switch (packetType) {
+        case PacketTypeSignInRequest:
+            packet = [Packet packetWithType:packetType];
+            break;
+        case PacketTypeSignInResponse:
+            packet = [PacketSignInResponse packetWithData:data];
+            
+        default:
+            NSLog(@"Error: packet has invalid packetType");
+            return nil;
+    }
+    
+    return packet;
 }
 
 - (id)initWithType:(PacketType)packetType{
