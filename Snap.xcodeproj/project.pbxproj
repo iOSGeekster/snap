@@ -21,6 +21,7 @@
 		24760A4315B2ECE20037E3C1 /* GameViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 24760A4115B2ECE20037E3C1 /* GameViewController.xib */; };
 		24760A4615B2F0270037E3C1 /* Game.m in Sources */ = {isa = PBXBuildFile; fileRef = 24760A4515B2F0270037E3C1 /* Game.m */; };
 		248F120D15AB49AD00733468 /* PeerCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 248F120C15AB49AD00733468 /* PeerCell.m */; };
+		24DAC46315C8508D0067617B /* PacketServerReady.m in Sources */ = {isa = PBXBuildFile; fileRef = 24DAC46215C8508D0067617B /* PacketServerReady.m */; };
 		24E085F515B5B07700848FD0 /* Player.m in Sources */ = {isa = PBXBuildFile; fileRef = 24E085F415B5B07700848FD0 /* Player.m */; };
 		24E085F915B5D9FC00848FD0 /* Packet.m in Sources */ = {isa = PBXBuildFile; fileRef = 24E085F815B5D9FC00848FD0 /* Packet.m */; };
 		24E085FC15B5DCFF00848FD0 /* NSData+SnapAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 24E085FB15B5DCFF00848FD0 /* NSData+SnapAdditions.m */; };
@@ -99,6 +100,8 @@
 		24760A4515B2F0270037E3C1 /* Game.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Game.m; path = Snap/Game.m; sourceTree = "<group>"; };
 		248F120B15AB49AD00733468 /* PeerCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PeerCell.h; path = Snap/PeerCell.h; sourceTree = "<group>"; };
 		248F120C15AB49AD00733468 /* PeerCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PeerCell.m; path = Snap/PeerCell.m; sourceTree = "<group>"; };
+		24DAC46115C8508D0067617B /* PacketServerReady.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PacketServerReady.h; path = Snap/PacketServerReady.h; sourceTree = "<group>"; };
+		24DAC46215C8508D0067617B /* PacketServerReady.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PacketServerReady.m; path = Snap/PacketServerReady.m; sourceTree = "<group>"; };
 		24E085F315B5B07700848FD0 /* Player.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Player.h; path = Snap/Player.h; sourceTree = "<group>"; };
 		24E085F415B5B07700848FD0 /* Player.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Player.m; path = Snap/Player.m; sourceTree = "<group>"; };
 		24E085F715B5D9FC00848FD0 /* Packet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Packet.h; path = Snap/Packet.h; sourceTree = "<group>"; };
@@ -213,6 +216,8 @@
 				24E085F815B5D9FC00848FD0 /* Packet.m */,
 				24E0860315B5ED6800848FD0 /* PacketSignInResponse.h */,
 				24E0860415B5ED6800848FD0 /* PacketSignInResponse.m */,
+				24DAC46115C8508D0067617B /* PacketServerReady.h */,
+				24DAC46215C8508D0067617B /* PacketServerReady.m */,
 			);
 			name = "Data Model";
 			sourceTree = "<group>";
@@ -471,6 +476,7 @@
 				24E085F915B5D9FC00848FD0 /* Packet.m in Sources */,
 				24E085FC15B5DCFF00848FD0 /* NSData+SnapAdditions.m in Sources */,
 				24E0860515B5ED6800848FD0 /* PacketSignInResponse.m in Sources */,
+				24DAC46315C8508D0067617B /* PacketServerReady.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -9,6 +9,7 @@
 #import "Game.h"
 #import "Packet.h"
 #import "PacketSignInResponse.h"
+#import "PacketServerReady.h"
 typedef enum{
     GameStateWaitingForSignIn,
     GameStateWaitingForReady,
@@ -114,6 +115,11 @@ GameState;
 #pragma mark - Networking
 
 - (void)sendPacketToAllClients:(Packet *)packet{
+    
+    [_players enumerateKeysAndObjectsUsingBlock:^(id key, Player *obj, BOOL *stop){
+        obj.receivedResponse = [_session.peerID isEqualToString:obj.peerID];
+    }];
+    
     GKSendDataMode dataMode = GKSendDataReliable;
     NSData *data = [packet data];
     
@@ -180,6 +186,11 @@ GameState;
     }
     
     Player *player = [self playerWithPeerID:peerID];
+    
+    if (player != nil) {
+        player.receivedResponse = YES;
+    }
+    
     if (self.isServer){
         [self serverReceivedPacket:packet fromPlayer:player];
     }else{
@@ -192,8 +203,13 @@ GameState;
         case PacketTypeSignInResponse:
             if (_state == GameStateWaitingForSignIn) {
                 player.name = ((PacketSignInResponse *)packet).playerName;
-                
-                NSLog(@"Server received sign in from client '%@'", player.name);
+                if ([self receivedResponseFromAllPlayers]) {
+                    _state = GameStateWaitingForReady;
+                    
+                    Packet *packet = [PacketServerReady packetWithPlayers:_players];
+                    [self sendPacketToAllClients:packet];
+                    NSLog(@"all clients have signed in.");
+                }
             }
             break;
             
@@ -212,11 +228,26 @@ GameState;
                 [self sendPacketToServer:packet];
             }
             break;
-            
+        case PacketTypeServerReady:
+            if (_state == GameStateWaitingForReady) {
+                _players = ((PacketServerReady *)packet).players;
+                
+                NSLog(@"The players are: %@", _players);
+            }
         default:
             NSLog(@"Client received unexpected packet: %@", packet);
             break;
     }
+}
+
+- (BOOL)receivedResponseFromAllPlayers{
+    for (NSString *peerID in _players) {
+        Player *player = [self playerWithPeerID:peerID];
+        if (!player.receivedResponse) {
+            return NO;
+        }
+    }
+    return YES;
 }
 
 @end

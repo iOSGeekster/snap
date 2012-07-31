@@ -9,6 +9,7 @@
 #import "Packet.h"
 #import "NSData+SnapAdditions.h"
 #import "PacketSignInResponse.h"
+#import "PacketServerReady.h"
 @implementation Packet
 
 @synthesize packetType = _packetType;
@@ -38,7 +39,8 @@
             break;
         case PacketTypeSignInResponse:
             packet = [PacketSignInResponse packetWithData:data];
-            
+        case PacketTypeServerReady:
+            packet = [PacketServerReady packetWithData:data];
         default:
             NSLog(@"Error: packet has invalid packetType");
             return nil;

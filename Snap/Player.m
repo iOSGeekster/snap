@@ -12,6 +12,7 @@
 @synthesize position = _position;
 @synthesize name = _name;
 @synthesize peerID = _peerID;
+@synthesize receivedResponse = _receivedResponse;
 
 - (void)dealloc{
 #ifdef DEBUG
