@@ -18,6 +18,7 @@ PlayerPosition;
 @property (nonatomic, assign) PlayerPosition position;
 @property (nonatomic, copy) NSString *name;
 @property (nonatomic, copy) NSString *peerID;
+@property (nonatomic, assign) int gamesWon;
 
 @property (nonatomic, assign) BOOL receivedResponse;
 

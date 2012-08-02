@@ -35,12 +35,15 @@
     Packet *packet;
     switch (packetType) {
         case PacketTypeSignInRequest:
+        case PacketTypeClientReady:
             packet = [Packet packetWithType:packetType];
             break;
         case PacketTypeSignInResponse:
             packet = [PacketSignInResponse packetWithData:data];
+            break;
         case PacketTypeServerReady:
             packet = [PacketServerReady packetWithData:data];
+            break;
         default:
             NSLog(@"Error: packet has invalid packetType");
             return nil;

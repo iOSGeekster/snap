@@ -13,6 +13,7 @@
 @synthesize name = _name;
 @synthesize peerID = _peerID;
 @synthesize receivedResponse = _receivedResponse;
+@synthesize gamesWon = _gamesWon;
 
 - (void)dealloc{
 #ifdef DEBUG
