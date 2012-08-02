@@ -150,6 +150,7 @@
 		24AB9B7315CABA5200170AC6 /* WrongSnap.png in Resources */ = {isa = PBXBuildFile; fileRef = 24AB9AD015CABA5200170AC6 /* WrongSnap.png */; };
 		24AB9B7415CABA5200170AC6 /* WrongSnap@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 24AB9AD115CABA5200170AC6 /* WrongSnap@2x.png */; };
 		24AB9B7615CAC00500170AC6 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 24AB9B7515CAC00500170AC6 /* QuartzCore.framework */; };
+		24AB9B7915CACD9D00170AC6 /* PacketOtherClientQuit.m in Sources */ = {isa = PBXBuildFile; fileRef = 24AB9B7815CACD9D00170AC6 /* PacketOtherClientQuit.m */; };
 		24DAC46315C8508D0067617B /* PacketServerReady.m in Sources */ = {isa = PBXBuildFile; fileRef = 24DAC46215C8508D0067617B /* PacketServerReady.m */; };
 		24E085F515B5B07700848FD0 /* Player.m in Sources */ = {isa = PBXBuildFile; fileRef = 24E085F415B5B07700848FD0 /* Player.m */; };
 		24E085F915B5D9FC00848FD0 /* Packet.m in Sources */ = {isa = PBXBuildFile; fileRef = 24E085F815B5D9FC00848FD0 /* Packet.m */; };
@@ -397,6 +398,8 @@
 		24AB9AD015CABA5200170AC6 /* WrongSnap.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = WrongSnap.png; sourceTree = "<group>"; };
 		24AB9AD115CABA5200170AC6 /* WrongSnap@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "WrongSnap@2x.png"; sourceTree = "<group>"; };
 		24AB9B7515CAC00500170AC6 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		24AB9B7715CACD9D00170AC6 /* PacketOtherClientQuit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PacketOtherClientQuit.h; path = Snap/PacketOtherClientQuit.h; sourceTree = "<group>"; };
+		24AB9B7815CACD9D00170AC6 /* PacketOtherClientQuit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PacketOtherClientQuit.m; path = Snap/PacketOtherClientQuit.m; sourceTree = "<group>"; };
 		24DAC46115C8508D0067617B /* PacketServerReady.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PacketServerReady.h; path = Snap/PacketServerReady.h; sourceTree = "<group>"; };
 		24DAC46215C8508D0067617B /* PacketServerReady.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PacketServerReady.m; path = Snap/PacketServerReady.m; sourceTree = "<group>"; };
 		24E085F315B5B07700848FD0 /* Player.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Player.h; path = Snap/Player.h; sourceTree = "<group>"; };
@@ -516,6 +519,8 @@
 				24E0860415B5ED6800848FD0 /* PacketSignInResponse.m */,
 				24DAC46115C8508D0067617B /* PacketServerReady.h */,
 				24DAC46215C8508D0067617B /* PacketServerReady.m */,
+				24AB9B7715CACD9D00170AC6 /* PacketOtherClientQuit.h */,
+				24AB9B7815CACD9D00170AC6 /* PacketOtherClientQuit.m */,
 			);
 			name = "Data Model";
 			sourceTree = "<group>";
@@ -1087,6 +1092,7 @@
 				24E085FC15B5DCFF00848FD0 /* NSData+SnapAdditions.m in Sources */,
 				24E0860515B5ED6800848FD0 /* PacketSignInResponse.m in Sources */,
 				24DAC46315C8508D0067617B /* PacketServerReady.m in Sources */,
+				24AB9B7915CACD9D00170AC6 /* PacketOtherClientQuit.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

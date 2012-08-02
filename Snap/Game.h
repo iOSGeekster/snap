@@ -15,6 +15,7 @@
 - (void)gameWaitingForServerReady:(Game *)game;
 - (void)gameWaitingForClientsReady:(Game *)game;
 - (void)gameDidBegin:(Game *)game;
+- (void)game:(Game *)game playerDidDisconnect:(Player*)disconnectedPlayer;
 
 @end
 @interface Game : NSObject <GKSessionDelegate>

@@ -13,7 +13,10 @@
 @property (nonatomic, weak) IBOutlet UILabel *centerLabel;
 @end
 
-@implementation GameViewController
+@implementation GameViewController{
+    UIAlertView *_alertView;
+}
+
 @synthesize delegate = _delegate;
 @synthesize game = _game;
 @synthesize centerLabel = _centerLabel;
@@ -63,6 +66,12 @@
     [self hidePlayerLabels];
     [self hideActivePlayerIndicator];
     [self hideSnapIndicators];
+}
+
+- (void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+    
+    [_alertView dismissWithClickedButtonIndex:_alertView.cancelButtonIndex animated:NO];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation{
@@ -274,10 +283,77 @@
 	}
 }
 
+- (void)hidePlayerLabelsForPlayer:(Player *)player{
+    switch (player.position) {
+        case PlayerPositionBottom:
+            self.playerNameBottomLabel.hidden = YES;
+            self.playerWinsBottomLabel.hidden = YES;
+            break;
+        case PlayerPositionLeft:
+            self.playerNameLeftLabel.hidden = YES;
+            self.playerWinsLeftLabel.hidden = YES;
+            break;
+        case PlayerPositionTop:
+            self.playerNameTopLabel.hidden = YES;
+            self.playerWinsTopLabel.hidden = YES;
+            break;
+        case PlayerPositionRight:
+            self.playerNameRightLabel.hidden = YES;
+            self.playerWinsRightLabel.hidden = YES;
+            break;
+        default:
+            break;
+    }
+}
+
+- (void)hideActiveIndicatorForPlayer:(Player *)player{
+    switch (player.position) {
+        case PlayerPositionBottom:
+            self.playerActiveBottomImageView.hidden = YES;
+            break;
+        case PlayerPositionLeft:
+            self.playerActiveLeftImageView.hidden = YES;
+            break;
+        case PlayerPositionTop:
+            self.playerActiveTopImageView.hidden = YES;
+            break;
+        case PlayerPositionRight:
+            self.playerActiveRightImageView.hidden = YES;
+            break;
+        default:
+            break;
+    }
+}
+
+- (void)hideSnapIndicatorForPlayer:(Player *)player{
+    switch (player.position) {
+        case PlayerPositionBottom:
+            self.snapIndicatorBottomImageView.hidden = YES;
+            break;
+        case PlayerPositionLeft:
+            self.snapIndicatorLeftImageView.hidden = YES;
+            break;
+        case PlayerPositionTop:
+            self.snapIndicatorTopImageView.hidden = YES;
+            break;
+        case PlayerPositionRight:
+            self.snapIndicatorRightImageView.hidden = YES;
+            break;
+        default:
+            break;
+    }
+}
+
 #pragma mark - Actions
 
 - (IBAction)exitAction:(id)sender{
-    [self.game quitGameWithReason:QuitReasonUserQuit];
+    if (self.game.isServer) {
+        _alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"End game?", @"Alert title (user is host)") message:NSLocalizedString(@"This will terminate the game for all other players.", @"Alert message (user is host)") delegate:self cancelButtonTitle:NSLocalizedString(@"No", @"Button: No") otherButtonTitles:NSLocalizedString(@"Yes", @"Button: Yes"), nil];
+    }else {
+        _alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Leave the game?", @"Alert title (user is not the host") message:nil delegate:self cancelButtonTitle:NSLocalizedString(@"No", @"Button: No") otherButtonTitles:NSLocalizedString(@"Yes", @"Button: Yes"), nil];
+    }
+    
+    [_alertView show];
 }
 
 - (IBAction)turnOverPressed:(id)sender
@@ -304,6 +380,14 @@
 {
 }
 
+#pragma mark - UIViewAlert delegate
+
+- (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex{
+    if (buttonIndex != alertView.cancelButtonIndex) {
+        [self.game quitGameWithReason:QuitReasonUserQuit];
+    }
+}
+
 #pragma mark - GameDelegate
 
 - (void)gameDidBegin:(Game *)game{
@@ -322,6 +406,12 @@
 
 - (void)gameWaitingForClientsReady:(Game *)game{
     self.centerLabel.text = NSLocalizedString(@"Waiting for other players...", @"Status text: waiting for clients");
+}
+
+- (void)game:(Game *)game playerDidDisconnect:(Player *)disconnectedPlayer{
+    [self hidePlayerLabelsForPlayer:disconnectedPlayer];
+    [self hideActiveIndicatorForPlayer:disconnectedPlayer];
+    [self hideSnapIndicatorForPlayer:disconnectedPlayer];
 }
 
 

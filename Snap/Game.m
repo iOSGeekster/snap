@@ -10,6 +10,7 @@
 #import "Packet.h"
 #import "PacketSignInResponse.h"
 #import "PacketServerReady.h"
+#import "PacketOtherClientQuit.h"
 typedef enum{
     GameStateWaitingForSignIn,
     GameStateWaitingForReady,
@@ -105,6 +106,17 @@ GameState;
 
 - (void)quitGameWithReason:(QuitReason)reason{
     _state = GameStateQuitting;
+    
+    if (reason == QuitReasonUserQuit) {
+        if (self.isServer) {
+            Packet *packet = [Packet packetWithType:PacketTypeServerQuit];
+            [self sendPacketToAllClients:packet];
+        }else{
+            Packet *packet = [Packet packetWithType:PacketTypeClientQuit];
+            [self sendPacketToServer:packet];
+        }
+    }
+    
     [_session disconnectFromAllPeers];
     
     _session.delegate = nil;
@@ -180,6 +192,14 @@ GameState;
 #ifdef DEBUG
 	NSLog(@"Game: peer %@ changed state %d", peerID, state);
 #endif
+    
+    if (state == GKPeerStateDisconnected) {
+        if (self.isServer) {
+            [self clientDidDisconnect:peerID];
+        } else if ([peerID isEqualToString:_serverPeerID]){
+            [self quitGameWithReason:QuitReasonConnectionDropped];
+        }
+    }
 }
 
 - (void)session:(GKSession *)session didReceiveConnectionRequestFromPeer:(NSString *)peerID
@@ -205,6 +225,29 @@ GameState;
 #ifdef DEBUG
 	NSLog(@"Game: session failed %@", error);
 #endif
+    
+    if ([[error domain] isEqualToString:GKSessionErrorDomain]) {
+        if (_state != GameStateQuitting) {
+            [self quitGameWithReason:QuitReasonConnectionDropped];
+        }
+    }
+}
+
+- (void)clientDidDisconnect:(NSString *)peerID{
+    if (_state != GameStateQuitting) {
+        Player *player = [self playerWithPeerID:peerID];
+        if (player != nil) {
+            [_players removeObjectForKey:peerID];
+            
+            if (!_state != GameStateWaitingForSignIn) {
+                if (self.isServer) {
+                    PacketOtherClientQuit *packet = [PacketOtherClientQuit packetWithPeerID:peerID];
+                    [self sendPacketToAllClients:packet];
+                }
+                [self.delegate game:self playerDidDisconnect:player];
+            }
+        }
+    }
 }
 
 #pragma mark - GKSession Data Receive Handler
@@ -252,6 +295,9 @@ GameState;
             if (_state == GameStateWaitingForReady && [self receivedResponseFromAllPlayers]) {
                 [self beginGame];
             }
+        case PacketTypeClientQuit:
+            [self clientDidDisconnect:player.peerID];
+            break;
         default:
             NSLog(@"Server received unexpected packet: %@", packet);
             break;
@@ -277,6 +323,16 @@ GameState;
                 
                 [self beginGame];
             }
+            break;
+        case PacketTypeOtherClientQuit:
+            if (_state != GameStateQuitting){
+                PacketOtherClientQuit *quitPacket = ((PacketOtherClientQuit *)packet);
+                [self clientDidDisconnect:quitPacket.peerID];
+            }
+            break;
+        case PacketTypeServerQuit:
+            [self quitGameWithReason:QuitReasonServerQuit];
+            break;
         default:
             NSLog(@"Client received unexpected packet: %@", packet);
             break;
