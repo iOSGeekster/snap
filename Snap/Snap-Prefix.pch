@@ -15,6 +15,10 @@
 //The name of GameKit session
 #define SESSION_ID @"Snap!"
 
+#define RANDOM_FLOAT() ((float)arc4random()/0xFFFFFFFFu)
+
+#define RANDOM_INT(n) (arc4random() % (n + 1))
+
 typedef enum
 {
     QuitReasonNoNetwork,

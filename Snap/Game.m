@@ -11,13 +11,17 @@
 #import "PacketSignInResponse.h"
 #import "PacketServerReady.h"
 #import "PacketOtherClientQuit.h"
+#import "Card.h"
+#import "Deck.h"
+#import "Player.h"
+#import "Stack.h"
 typedef enum{
     GameStateWaitingForSignIn,
     GameStateWaitingForReady,
     GameStateDealing,
     GameStatePlaying,
     GameStateGameOver,
-    GameStateQuitting
+    GameStateQuitting,
 }
 GameState;
 
@@ -29,6 +33,9 @@ GameState;
     NSString *_serverPeerID;
     NSString *_localPlayerName;
     NSMutableDictionary *_players;
+    
+    PlayerPosition _startingPlayerPosition;
+    PlayerPosition _activePlayerPosition;
 }
 
 @synthesize delegate = _delegate;
@@ -127,6 +134,43 @@ GameState;
 - (void)beginGame{
     _state = GameStateDealing;
     [self.delegate gameDidBegin:self];
+    
+    if (self.isServer) {
+        [self pickRandomStartingPlayer];
+        [self dealCards];
+    }
+}
+
+- (void)dealCards{
+    NSAssert([self isServer], @"Must be server");
+    NSAssert(_state == GameStateDealing, @"Wrong state");
+    
+    Deck *deck = [[Deck alloc] init];
+    [deck shuffle];
+    
+    while ([deck cardsRemaining] > 0) {
+        for (PlayerPosition p = _startingPlayerPosition; p < _startingPlayerPosition + 4; ++p) {
+            Player *player = [self playerAtPosition:(p % 4)];
+            if (player != nil && [deck cardsRemaining] > 0) {
+                Card *card = [deck draw];
+                [player.closedCards addCardToTop:card];
+            }
+        }
+    }
+    Player *startingPlayer = [self activePlayer];
+    [self.delegate gameShouldDealCards:self startingWithPlayer:startingPlayer];
+}
+
+- (Player *)activePlayer{
+    return [self playerAtPosition:_activePlayerPosition];
+}
+
+- (void)pickRandomStartingPlayer{
+    do {
+        _startingPlayerPosition = arc4random() % 4;
+    } while ([self playerAtPosition:_startingPlayerPosition] == nil);
+    
+    _activePlayerPosition = _startingPlayerPosition;
 }
 
 - (void)changeRelativePositionOfPlayers{

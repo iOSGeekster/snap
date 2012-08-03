@@ -21,6 +21,7 @@
 		24760A4315B2ECE20037E3C1 /* GameViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 24760A4115B2ECE20037E3C1 /* GameViewController.xib */; };
 		24760A4615B2F0270037E3C1 /* Game.m in Sources */ = {isa = PBXBuildFile; fileRef = 24760A4515B2F0270037E3C1 /* Game.m */; };
 		248F120D15AB49AD00733468 /* PeerCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 248F120C15AB49AD00733468 /* PeerCell.m */; };
+		249C2D9515CC26F700BBE947 /* CardView.m in Sources */ = {isa = PBXBuildFile; fileRef = 249C2D9415CC26F700BBE947 /* CardView.m */; };
 		24AB98E315CAB91E00170AC6 /* CorrectMatch.caf in Resources */ = {isa = PBXBuildFile; fileRef = 24AB98DF15CAB91E00170AC6 /* CorrectMatch.caf */; };
 		24AB98E415CAB91E00170AC6 /* Dealing.caf in Resources */ = {isa = PBXBuildFile; fileRef = 24AB98E015CAB91E00170AC6 /* Dealing.caf */; };
 		24AB98E515CAB91E00170AC6 /* TurnCard.caf in Resources */ = {isa = PBXBuildFile; fileRef = 24AB98E115CAB91E00170AC6 /* TurnCard.caf */; };
@@ -151,6 +152,9 @@
 		24AB9B7415CABA5200170AC6 /* WrongSnap@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 24AB9AD115CABA5200170AC6 /* WrongSnap@2x.png */; };
 		24AB9B7615CAC00500170AC6 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 24AB9B7515CAC00500170AC6 /* QuartzCore.framework */; };
 		24AB9B7915CACD9D00170AC6 /* PacketOtherClientQuit.m in Sources */ = {isa = PBXBuildFile; fileRef = 24AB9B7815CACD9D00170AC6 /* PacketOtherClientQuit.m */; };
+		24AB9B7C15CAF94200170AC6 /* Card.m in Sources */ = {isa = PBXBuildFile; fileRef = 24AB9B7B15CAF94200170AC6 /* Card.m */; };
+		24AB9B7F15CAFA3600170AC6 /* Deck.m in Sources */ = {isa = PBXBuildFile; fileRef = 24AB9B7E15CAFA3600170AC6 /* Deck.m */; };
+		24AB9B8215CAFE2100170AC6 /* Stack.m in Sources */ = {isa = PBXBuildFile; fileRef = 24AB9B8115CAFE2100170AC6 /* Stack.m */; };
 		24DAC46315C8508D0067617B /* PacketServerReady.m in Sources */ = {isa = PBXBuildFile; fileRef = 24DAC46215C8508D0067617B /* PacketServerReady.m */; };
 		24E085F515B5B07700848FD0 /* Player.m in Sources */ = {isa = PBXBuildFile; fileRef = 24E085F415B5B07700848FD0 /* Player.m */; };
 		24E085F915B5D9FC00848FD0 /* Packet.m in Sources */ = {isa = PBXBuildFile; fileRef = 24E085F815B5D9FC00848FD0 /* Packet.m */; };
@@ -230,6 +234,8 @@
 		24760A4515B2F0270037E3C1 /* Game.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Game.m; path = Snap/Game.m; sourceTree = "<group>"; };
 		248F120B15AB49AD00733468 /* PeerCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PeerCell.h; path = Snap/PeerCell.h; sourceTree = "<group>"; };
 		248F120C15AB49AD00733468 /* PeerCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PeerCell.m; path = Snap/PeerCell.m; sourceTree = "<group>"; };
+		249C2D9315CC26F700BBE947 /* CardView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CardView.h; path = Snap/CardView.h; sourceTree = "<group>"; };
+		249C2D9415CC26F700BBE947 /* CardView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CardView.m; path = Snap/CardView.m; sourceTree = "<group>"; };
 		24AB98DF15CAB91E00170AC6 /* CorrectMatch.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = CorrectMatch.caf; sourceTree = "<group>"; };
 		24AB98E015CAB91E00170AC6 /* Dealing.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Dealing.caf; sourceTree = "<group>"; };
 		24AB98E115CAB91E00170AC6 /* TurnCard.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = TurnCard.caf; sourceTree = "<group>"; };
@@ -400,6 +406,12 @@
 		24AB9B7515CAC00500170AC6 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		24AB9B7715CACD9D00170AC6 /* PacketOtherClientQuit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PacketOtherClientQuit.h; path = Snap/PacketOtherClientQuit.h; sourceTree = "<group>"; };
 		24AB9B7815CACD9D00170AC6 /* PacketOtherClientQuit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PacketOtherClientQuit.m; path = Snap/PacketOtherClientQuit.m; sourceTree = "<group>"; };
+		24AB9B7A15CAF94200170AC6 /* Card.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Card.h; path = Snap/Card.h; sourceTree = "<group>"; };
+		24AB9B7B15CAF94200170AC6 /* Card.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Card.m; path = Snap/Card.m; sourceTree = "<group>"; };
+		24AB9B7D15CAFA3600170AC6 /* Deck.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Deck.h; path = Snap/Deck.h; sourceTree = "<group>"; };
+		24AB9B7E15CAFA3600170AC6 /* Deck.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Deck.m; path = Snap/Deck.m; sourceTree = "<group>"; };
+		24AB9B8015CAFE2100170AC6 /* Stack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Stack.h; path = Snap/Stack.h; sourceTree = "<group>"; };
+		24AB9B8115CAFE2100170AC6 /* Stack.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Stack.m; path = Snap/Stack.m; sourceTree = "<group>"; };
 		24DAC46115C8508D0067617B /* PacketServerReady.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PacketServerReady.h; path = Snap/PacketServerReady.h; sourceTree = "<group>"; };
 		24DAC46215C8508D0067617B /* PacketServerReady.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PacketServerReady.m; path = Snap/PacketServerReady.m; sourceTree = "<group>"; };
 		24E085F315B5B07700848FD0 /* Player.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Player.h; path = Snap/Player.h; sourceTree = "<group>"; };
@@ -521,6 +533,12 @@
 				24DAC46215C8508D0067617B /* PacketServerReady.m */,
 				24AB9B7715CACD9D00170AC6 /* PacketOtherClientQuit.h */,
 				24AB9B7815CACD9D00170AC6 /* PacketOtherClientQuit.m */,
+				24AB9B7A15CAF94200170AC6 /* Card.h */,
+				24AB9B7B15CAF94200170AC6 /* Card.m */,
+				24AB9B7D15CAFA3600170AC6 /* Deck.h */,
+				24AB9B7E15CAFA3600170AC6 /* Deck.m */,
+				24AB9B8015CAFE2100170AC6 /* Stack.h */,
+				24AB9B8115CAFE2100170AC6 /* Stack.m */,
 			);
 			name = "Data Model";
 			sourceTree = "<group>";
@@ -530,6 +548,8 @@
 			children = (
 				248F120B15AB49AD00733468 /* PeerCell.h */,
 				248F120C15AB49AD00733468 /* PeerCell.m */,
+				249C2D9315CC26F700BBE947 /* CardView.h */,
+				249C2D9415CC26F700BBE947 /* CardView.m */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -1093,6 +1113,10 @@
 				24E0860515B5ED6800848FD0 /* PacketSignInResponse.m in Sources */,
 				24DAC46315C8508D0067617B /* PacketServerReady.m in Sources */,
 				24AB9B7915CACD9D00170AC6 /* PacketOtherClientQuit.m in Sources */,
+				24AB9B7C15CAF94200170AC6 /* Card.m in Sources */,
+				24AB9B7F15CAFA3600170AC6 /* Deck.m in Sources */,
+				24AB9B8215CAFE2100170AC6 /* Stack.m in Sources */,
+				249C2D9515CC26F700BBE947 /* CardView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

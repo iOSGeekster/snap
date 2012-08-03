@@ -6,7 +6,6 @@
 //  Copyright (c) 2012 Hollance. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
 #import "Player.h"
 @class Game;
 @protocol GameDelegate <NSObject>
@@ -16,6 +15,7 @@
 - (void)gameWaitingForClientsReady:(Game *)game;
 - (void)gameDidBegin:(Game *)game;
 - (void)game:(Game *)game playerDidDisconnect:(Player*)disconnectedPlayer;
+- (void)gameShouldDealCards:(Game *)game startingWithPlayer:(Player *)startingPlayer;
 
 @end
 @interface Game : NSObject <GKSessionDelegate>

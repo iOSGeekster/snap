@@ -9,6 +9,10 @@
 #import "GameViewController.h"
 #import "UIFont+SnapAdditions.h"
 #import "Game.h"
+#import "Card.h"
+#import "CardView.h"
+#import "Player.h"
+#import "Stack.h"
 @interface GameViewController ()
 @property (nonatomic, weak) IBOutlet UILabel *centerLabel;
 @end
@@ -412,6 +416,29 @@
     [self hidePlayerLabelsForPlayer:disconnectedPlayer];
     [self hideActiveIndicatorForPlayer:disconnectedPlayer];
     [self hideSnapIndicatorForPlayer:disconnectedPlayer];
+}
+
+- (void)gameShouldDealCards:(Game *)game startingWithPlayer:(Player *)startingPlayer{
+    self.centerLabel.text = NSLocalizedString(@"Dealing...", @"Status text: dealing");
+    
+    self.snapButton.hidden = YES;
+    self.nextRoundButton.hidden = YES;
+    
+    NSTimeInterval delay = 1.0f;
+    
+    for (int t = 0; t < 26; ++t) {
+        for (PlayerPosition p = startingPlayer.position; p < startingPlayer.position +4; ++p) {
+            Player *player = [self.game playerAtPosition:p % 4];
+            if (player != nil && t < [player.closedCards cardCount]) {
+                CardView *cardView = [[CardView alloc] initWithFrame:CGRectMake(0, 0, CardWidth, CardHeight)];
+                cardView.card = [player.closedCards cardAtIndex:t];
+                [self.cardContainerView addSubview:cardView];
+                [cardView animateDealingToPlayer:player withDelay:delay];
+                delay += 0.1f;
+            }
+        }
+    }
+    
 }
 
 

@@ -7,6 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
+@class Card;
+@class Stack;
 typedef enum{
     PlayerPositionBottom,
     PlayerPositionLeft,
@@ -19,7 +21,8 @@ PlayerPosition;
 @property (nonatomic, copy) NSString *name;
 @property (nonatomic, copy) NSString *peerID;
 @property (nonatomic, assign) int gamesWon;
-
+@property (nonatomic, strong, readonly) Stack *closedCards;
+@property (nonatomic, strong, readonly) Stack *openCards;
 @property (nonatomic, assign) BOOL receivedResponse;
 
 @end

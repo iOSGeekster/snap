@@ -7,18 +7,28 @@
 //
 
 #import "Player.h"
-
+#import "Card.h"
+#import "Stack.h"
 @implementation Player
 @synthesize position = _position;
 @synthesize name = _name;
 @synthesize peerID = _peerID;
 @synthesize receivedResponse = _receivedResponse;
 @synthesize gamesWon = _gamesWon;
-
+@synthesize closedCards = _closedCards;
+@synthesize openCards = _openCards;
 - (void)dealloc{
 #ifdef DEBUG
     NSLog(@"deallog %@",self);
 #endif
+}
+
+- (id)init{
+    if ((self = [super init])) {
+        _closedCards = [[Stack alloc] init];
+        _openCards = [[Stack alloc] init];
+    }
+    return self;
 }
 
 - (NSString *)description{

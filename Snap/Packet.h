@@ -6,7 +6,7 @@
 //  Copyright (c) 2012 Hollance. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+const size_t PACKET_HEADER_SIZE = 10;
 typedef enum{
     PacketTypeSignInRequest = 0x64,
     PacketTypeSignInResponse,
@@ -25,10 +25,9 @@ typedef enum{
     
     PacketTypeOtherClientQuit,
     PacketTypeServerQuit,
-    PacketTypeClientQuit
+    PacketTypeClientQuit,
 }
 PacketType;
-const size_t PACKET_HEADER_SIZE = 10;
 @interface Packet : NSObject
 @property (nonatomic, assign) PacketType packetType;
 
