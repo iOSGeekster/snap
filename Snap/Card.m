@@ -11,6 +11,7 @@
 @implementation Card
 @synthesize suit = _suit;
 @synthesize value = _value;
+@synthesize isTurnedOver = _isTurnedOver;
 
 - (id)initWithSuit:(Suit)suit value:(int)value{
     NSAssert(value >= CardAce && value <= CardKing, @"Invalid card value");

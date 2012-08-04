@@ -20,6 +20,7 @@
 @implementation GameViewController{
     UIAlertView *_alertView;
     AVAudioPlayer *_dealingCardsSound;
+    UIImageView *_tappedView;
 }
 
 @synthesize delegate = _delegate;
@@ -355,6 +356,43 @@
     }
 }
 
+- (void)showTappedView{
+    Player *player = [self.game playerAtPosition:PlayerPositionBottom];
+    Card *card = [player.closedCards topmostCard];
+    if (card != nil) {
+        CardView *cardView = [self cardViewForCard:card];
+        
+        if (_tappedView == nil) {
+            _tappedView = [[UIImageView alloc] initWithFrame:cardView.bounds];
+            _tappedView.backgroundColor = [UIColor clearColor];
+            _tappedView.image = [UIImage imageNamed:@"Darken"];
+            _tappedView.alpha = 0.6f;
+            [self.view addSubview:_tappedView];
+        } else {
+            _tappedView.hidden = NO;
+        }
+        
+        _tappedView.center = cardView.center;
+        _tappedView.transform = cardView.transform;
+    }
+    
+}
+
+- (void)hideTappedView{
+    _tappedView.hidden = YES;
+}
+
+- (CardView *)cardViewForCard:(Card *)card{
+    for (CardView *cardView in self.cardContainerView.subviews) {
+        if (cardView.card == card) {
+            return cardView;
+        }
+    }
+    return nil;
+}
+
+
+
 #pragma mark - Actions
 
 - (IBAction)exitAction:(id)sender{
@@ -369,18 +407,23 @@
 
 - (IBAction)turnOverPressed:(id)sender
 {
+    [self showTappedView];
 }
 
 - (IBAction)turnOverEnter:(id)sender
 {
+    [self showTappedView];
 }
 
 - (IBAction)turnOverExit:(id)sender
 {
+    [self hideTappedView];
 }
 
 - (IBAction)turnOverAction:(id)sender
 {
+    [self hideTappedView];
+    [self.game turnCardForPlayerAtBottom];
 }
 
 - (IBAction)snapAction:(id)sender
@@ -467,6 +510,10 @@
 - (void)game:(Game *)game didActivatePlayer:(Player *)player{
     [self showIndicatorForActivePlayer];
     self.snapButton.enabled = YES;
+}
+
+- (void)game:(Game *)game player:(Player *)player turnedOverCard:(Card *)card{
+    
 }
 
 - (void)showIndicatorForActivePlayer{

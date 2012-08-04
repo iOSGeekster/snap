@@ -25,4 +25,6 @@ PlayerPosition;
 @property (nonatomic, strong, readonly) Stack *openCards;
 @property (nonatomic, assign) BOOL receivedResponse;
 
+- (Card *)turnOverTopCard;
+
 @end
