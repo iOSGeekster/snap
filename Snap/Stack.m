@@ -37,4 +37,8 @@
     return [_cards objectAtIndex:index];
 }
 
+- (void)addCardsFromArray:(NSArray *)array{
+    _cards = [array mutableCopy];
+}
+
 @end

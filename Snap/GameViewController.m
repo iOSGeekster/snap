@@ -19,6 +19,7 @@
 
 @implementation GameViewController{
     UIAlertView *_alertView;
+    AVAudioPlayer *_dealingCardsSound;
 }
 
 @synthesize delegate = _delegate;
@@ -56,6 +57,10 @@
 #ifdef DEBUG
     NSLog(@"dealloc %@", self);
 #endif
+    
+    [_dealingCardsSound stop];
+    [[AVAudioSession sharedInstance] setActive:NO error:NULL];
+    
 }
 
 - (void)viewDidLoad{
@@ -70,6 +75,8 @@
     [self hidePlayerLabels];
     [self hideActivePlayerIndicator];
     [self hideSnapIndicators];
+    
+    [self loadSounds];
 }
 
 - (void)viewWillDisappear:(BOOL)animated{
@@ -388,6 +395,9 @@
 
 - (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex{
     if (buttonIndex != alertView.cancelButtonIndex) {
+        
+        [NSObject cancelPreviousPerformRequestsWithTarget:self];
+        
         [self.game quitGameWithReason:QuitReasonUserQuit];
     }
 }
@@ -426,6 +436,11 @@
     
     NSTimeInterval delay = 1.0f;
     
+    //Sound code
+    _dealingCardsSound.currentTime = 0.0f;
+    [_dealingCardsSound prepareToPlay];
+    [_dealingCardsSound performSelector:@selector(play) withObject:nil afterDelay:delay];
+    
     for (int t = 0; t < 26; ++t) {
         for (PlayerPosition p = startingPlayer.position; p < startingPlayer.position +4; ++p) {
             Player *player = [self.game playerAtPosition:p % 4];
@@ -439,8 +454,27 @@
         }
     }
     
+    [self performSelector:@selector(afterDealing) withObject:nil afterDelay:delay];
+    
 }
 
+- (void)afterDealing{
+    [_dealingCardsSound stop];
+    self.snapButton.hidden = NO;
+}
 
+#pragma mark - Sound methods
+
+- (void)loadSounds{
+    AVAudioSession *audioSession = [AVAudioSession sharedInstance];
+    audioSession.delegate = nil;
+    [audioSession setCategory:AVAudioSessionCategoryAmbient error:nil];
+    [audioSession setActive:YES error:nil];
+    
+    NSURL *url = [[NSBundle mainBundle] URLForResource:@"Dealing" withExtension:@"caf"];
+    _dealingCardsSound = [[AVAudioPlayer alloc] initWithContentsOfURL:url error:nil];
+    _dealingCardsSound.numberOfLoops = -1;
+    [_dealingCardsSound prepareToPlay];
+}
 
 @end

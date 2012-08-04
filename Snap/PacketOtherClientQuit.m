@@ -23,7 +23,7 @@
 }
 
 + (id)packetWithData:(NSData *)data{
-    size_t offset = PACKET_HEADER_SIZE;
+    size_t offset = 10;//PACKET_HEADER_SIZE;
     size_t count;
     
     NSString *peerID = [data jn_stringAtOffset:offset bytesRead:&count];

@@ -7,10 +7,12 @@
 //
 
 #import "Game.h"
+
 #import "Packet.h"
-#import "PacketSignInResponse.h"
-#import "PacketServerReady.h"
 #import "PacketOtherClientQuit.h"
+#import "PacketServerReady.h"
+#import "PacketSignInResponse.h"
+#import "PacketDealCards.h"
 #import "Card.h"
 #import "Deck.h"
 #import "Player.h"
@@ -158,6 +160,16 @@ GameState;
         }
     }
     Player *startingPlayer = [self activePlayer];
+    
+    NSMutableDictionary *playerCards = [NSMutableDictionary dictionaryWithCapacity:4];
+    [_players enumerateKeysAndObjectsUsingBlock:^(id key, Player *obj, BOOL *stop){
+        NSArray *array = [obj.closedCards array];
+        [playerCards setObject:array forKey:obj.peerID];
+    }];
+    
+    PacketDealCards *packet = [PacketDealCards packetWithCards:playerCards startingWithPlayerPeerID:startingPlayer.peerID];
+    [self sendPacketToAllClients:packet];
+    
     [self.delegate gameShouldDealCards:self startingWithPlayer:startingPlayer];
 }
 
@@ -202,6 +214,23 @@ GameState;
         }
     }];
     return player;
+}
+
+- (void)handleDealCardsPacket:(PacketDealCards *)packet{
+    [packet.cards enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop){
+        Player *player = [self playerWithPeerID:key];
+        [player.closedCards addCardsFromArray:obj];
+    }];
+    
+    Player *startingPlayer = [self playerWithPeerID:packet.startingPeerID];
+    _activePlayerPosition = startingPlayer.position;
+    
+    Packet *responsePacket = [Packet packetWithType:PacketTypeClientDealtCards];
+    [self sendPacketToServer:responsePacket];
+    
+    _state = GameStatePlaying;
+    
+    [self.delegate gameShouldDealCards:self startingWithPlayer:startingPlayer];
 }
 
 #pragma mark - Networking
@@ -342,6 +371,11 @@ GameState;
         case PacketTypeClientQuit:
             [self clientDidDisconnect:player.peerID];
             break;
+        case PacketTypeClientDealtCards:
+            if (_state == GameStateDealing && [self receivedResponseFromAllPlayers]) {
+                _state = GameStatePlaying;
+            }
+            break;
         default:
             NSLog(@"Server received unexpected packet: %@", packet);
             break;
@@ -377,6 +411,10 @@ GameState;
         case PacketTypeServerQuit:
             [self quitGameWithReason:QuitReasonServerQuit];
             break;
+        case PacketTypeDealCards:
+            if (_state == GameStateDealing) {
+                [self handleDealCardsPacket:(PacketDealCards *)packet];
+            }
         default:
             NSLog(@"Client received unexpected packet: %@", packet);
             break;

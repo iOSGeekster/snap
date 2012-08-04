@@ -20,7 +20,7 @@
 + (id)packetWithData:(NSData *)data{
     NSMutableDictionary *players = [NSMutableDictionary dictionaryWithCapacity:4];
     
-    size_t offset = PACKET_HEADER_SIZE;
+    size_t offset = 10;//PACKET_HEADER_SIZE;
     size_t count;
     
     int numberOfPlayers = [data jn_int8AtOffset:offset];

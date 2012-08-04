@@ -13,4 +13,5 @@
 - (NSUInteger)cardCount;
 - (NSArray *)array;
 - (Card *)cardAtIndex:(NSUInteger)index;
+- (void)addCardsFromArray:(NSArray *)array;
 @end

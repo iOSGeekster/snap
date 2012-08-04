@@ -18,7 +18,7 @@
 
 + (id)packetWithData:(NSData *)data{
     size_t count;
-    NSString *playerName = [data jn_stringAtOffset:PACKET_HEADER_SIZE bytesRead:&count];
+    NSString *playerName = [data jn_stringAtOffset:/*PACKET_HEADER_SIZE*/10 bytesRead:&count];
     return [[self class] packetWithPlayerName:playerName];
 }
 

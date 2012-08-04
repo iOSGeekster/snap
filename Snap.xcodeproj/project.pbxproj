@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2427ECB015CD664000D9E44F /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 24AB9B7515CAC00500170AC6 /* QuartzCore.framework */; };
+		2427ECB315CD6BEF00D9E44F /* PacketDealCards.m in Sources */ = {isa = PBXBuildFile; fileRef = 2427ECB215CD6BEF00D9E44F /* PacketDealCards.m */; };
 		246F337D15A0567500EAECBF /* Action_Man.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 246F337C15A0567500EAECBF /* Action_Man.ttf */; };
 		246F338115A056CF00EAECBF /* UIFont+SnapAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 246F338015A056CF00EAECBF /* UIFont+SnapAdditions.m */; };
 		246F338515A0598F00EAECBF /* UIButton+SnapAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 246F338415A0598F00EAECBF /* UIButton+SnapAdditions.m */; };
@@ -150,7 +152,6 @@
 		24AB9B6E15CABA5200170AC6 /* Spades Queen@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 24AB9ACB15CABA5200170AC6 /* Spades Queen@2x.png */; };
 		24AB9B7315CABA5200170AC6 /* WrongSnap.png in Resources */ = {isa = PBXBuildFile; fileRef = 24AB9AD015CABA5200170AC6 /* WrongSnap.png */; };
 		24AB9B7415CABA5200170AC6 /* WrongSnap@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 24AB9AD115CABA5200170AC6 /* WrongSnap@2x.png */; };
-		24AB9B7615CAC00500170AC6 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 24AB9B7515CAC00500170AC6 /* QuartzCore.framework */; };
 		24AB9B7915CACD9D00170AC6 /* PacketOtherClientQuit.m in Sources */ = {isa = PBXBuildFile; fileRef = 24AB9B7815CACD9D00170AC6 /* PacketOtherClientQuit.m */; };
 		24AB9B7C15CAF94200170AC6 /* Card.m in Sources */ = {isa = PBXBuildFile; fileRef = 24AB9B7B15CAF94200170AC6 /* Card.m */; };
 		24AB9B7F15CAFA3600170AC6 /* Deck.m in Sources */ = {isa = PBXBuildFile; fileRef = 24AB9B7E15CAFA3600170AC6 /* Deck.m */; };
@@ -211,6 +212,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2427ECB115CD6BEF00D9E44F /* PacketDealCards.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PacketDealCards.h; path = Snap/PacketDealCards.h; sourceTree = "<group>"; };
+		2427ECB215CD6BEF00D9E44F /* PacketDealCards.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PacketDealCards.m; path = Snap/PacketDealCards.m; sourceTree = "<group>"; };
 		246F337C15A0567500EAECBF /* Action_Man.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Action_Man.ttf; sourceTree = SOURCE_ROOT; };
 		246F337F15A056CF00EAECBF /* UIFont+SnapAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIFont+SnapAdditions.h"; path = "Snap/UIFont+SnapAdditions.h"; sourceTree = "<group>"; };
 		246F338015A056CF00EAECBF /* UIFont+SnapAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIFont+SnapAdditions.m"; path = "Snap/UIFont+SnapAdditions.m"; sourceTree = "<group>"; };
@@ -482,7 +485,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				24AB9B7615CAC00500170AC6 /* QuartzCore.framework in Frameworks */,
+				2427ECB015CD664000D9E44F /* QuartzCore.framework in Frameworks */,
 				246F339315A07C7800EAECBF /* GameKit.framework in Frameworks */,
 				7B739AC614EC9DFE00A07C50 /* AVFoundation.framework in Frameworks */,
 				7B67D9DB14C9C6AD00254619 /* UIKit.framework in Frameworks */,
@@ -539,6 +542,8 @@
 				24AB9B7E15CAFA3600170AC6 /* Deck.m */,
 				24AB9B8015CAFE2100170AC6 /* Stack.h */,
 				24AB9B8115CAFE2100170AC6 /* Stack.m */,
+				2427ECB115CD6BEF00D9E44F /* PacketDealCards.h */,
+				2427ECB215CD6BEF00D9E44F /* PacketDealCards.m */,
 			);
 			name = "Data Model";
 			sourceTree = "<group>";
@@ -1117,6 +1122,7 @@
 				24AB9B7F15CAFA3600170AC6 /* Deck.m in Sources */,
 				24AB9B8215CAFE2100170AC6 /* Stack.m in Sources */,
 				249C2D9515CC26F700BBE947 /* CardView.m in Sources */,
+				2427ECB315CD6BEF00D9E44F /* PacketDealCards.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
