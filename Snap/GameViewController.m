@@ -461,6 +461,41 @@
 - (void)afterDealing{
     [_dealingCardsSound stop];
     self.snapButton.hidden = NO;
+    [self.game beginRound];
+}
+
+- (void)game:(Game *)game didActivatePlayer:(Player *)player{
+    [self showIndicatorForActivePlayer];
+    self.snapButton.enabled = YES;
+}
+
+- (void)showIndicatorForActivePlayer{
+    [self hideActivePlayerIndicator];
+    PlayerPosition position = [self.game activePlayer].position;
+    
+    switch (position) {
+        case PlayerPositionBottom:
+            self.playerActiveBottomImageView.hidden = NO;
+            break;
+        case PlayerPositionLeft:
+            self.playerActiveLeftImageView.hidden = NO;
+            break;
+        case PlayerPositionTop:
+            self.playerActiveTopImageView.hidden = NO;
+            break;
+        case PlayerPositionRight:
+            self.playerActiveRightImageView.hidden = NO;
+            break;
+        default:
+            break;
+    }
+    
+    if (position == PlayerPositionBottom) {
+        self.centerLabel.text = NSLocalizedString(@"Your turn. Tap the stack.", @"Status text: your turn");
+    } else {
+        self.centerLabel.text = [NSString stringWithFormat:NSLocalizedString(@"%@'s turn", @"Status text: other players turn"), [self.game activePlayer].name];
+    }
+    
 }
 
 #pragma mark - Sound methods

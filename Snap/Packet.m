@@ -13,6 +13,7 @@
 #import "PacketOtherClientQuit.h"
 #import "Card.h"
 #import "PacketDealCards.h"
+#import "PacketActivatePlayer.h"
 @implementation Packet
 
 @synthesize packetType = _packetType;
@@ -55,6 +56,9 @@
             break;
         case PacketTypeDealCards:
             packet = [PacketDealCards packetWithData:data];
+            break;
+        case PacketTypeActivatePlayer:
+            packet = [PacketActivatePlayer packetWithData:data];
             break;
         default:
             NSLog(@"Error: packet has invalid packetType");

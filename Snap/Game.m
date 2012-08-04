@@ -17,6 +17,7 @@
 #import "Deck.h"
 #import "Player.h"
 #import "Stack.h"
+#import "PacketActivatePlayer.h"
 typedef enum{
     GameStateWaitingForSignIn,
     GameStateWaitingForReady,
@@ -233,6 +234,32 @@ GameState;
     [self.delegate gameShouldDealCards:self startingWithPlayer:startingPlayer];
 }
 
+- (void)handleActivatePlayerPacket:(PacketActivatePlayer *)packet{
+    NSString *peerID = packet.peerID;
+    
+    Player *newPlayer = [self playerWithPeerID:peerID];
+    if (newPlayer == nil) {
+        return;
+    }
+    
+    _activePlayerPosition = newPlayer.position;
+    [self activatePlayerAtPostion:_activePlayerPosition];
+}
+
+- (void)beginRound{
+    [self activatePlayerAtPostion:_activePlayerPosition];
+}
+
+- (void)activatePlayerAtPostion:(PlayerPosition)playerPosition{
+    if (self.isServer) {
+        NSString *peerID = [self activePlayer].peerID;
+        Packet *packet = [PacketActivatePlayer packetWithPeerID:peerID];
+        [self sendPacketToAllClients:packet];
+    }
+    
+    [self.delegate game:self didActivatePlayer:[self activePlayer]];
+}
+
 #pragma mark - Networking
 
 - (void)sendPacketToAllClients:(Packet *)packet{
@@ -414,6 +441,10 @@ GameState;
         case PacketTypeDealCards:
             if (_state == GameStateDealing) {
                 [self handleDealCardsPacket:(PacketDealCards *)packet];
+            }
+        case PacketTypeActivatePlayer:
+            if (_state == GameStateDealing) {
+                [self handleActivatePlayerPacket:(PacketActivatePlayer *)packet];
             }
         default:
             NSLog(@"Client received unexpected packet: %@", packet);
