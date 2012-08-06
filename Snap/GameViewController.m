@@ -21,6 +21,7 @@
     UIAlertView *_alertView;
     AVAudioPlayer *_dealingCardsSound;
     UIImageView *_tappedView;
+    AVAudioPlayer *_turnCardSound;
 }
 
 @synthesize delegate = _delegate;
@@ -513,7 +514,10 @@
 }
 
 - (void)game:(Game *)game player:(Player *)player turnedOverCard:(Card *)card{
+    [_turnCardSound play];
     
+    CardView *cardView = [self cardViewForCard:card];
+    [cardView animateTurningOverForPlayer:player];
 }
 
 - (void)showIndicatorForActivePlayer{
@@ -557,6 +561,10 @@
     _dealingCardsSound = [[AVAudioPlayer alloc] initWithContentsOfURL:url error:nil];
     _dealingCardsSound.numberOfLoops = -1;
     [_dealingCardsSound prepareToPlay];
+    
+    url = [[NSBundle mainBundle] URLForResource:@"TurnCard" withExtension:@"caf"];
+    _turnCardSound = [[AVAudioPlayer alloc] initWithContentsOfURL:url error:nil];
+    [_turnCardSound play];
 }
 
 @end
